@@ -3,7 +3,7 @@
 Achieve your personal health and fitness goals faster!  
 Look back on your acheivements and progression!
 
-**Track your workouts with Trainieren.**
+**Track your workouts with [Trainieren](https://trainieren.herokuapp.com/).**
 
 A workout tracker that uses MongoDB and Express, the front end code creaeted by Trilogy Education Services.
 
@@ -24,14 +24,14 @@ When the user loads the page, they should be given the option to create a new wo
 
 The user should be able to:
 
-- Add exercises to the most recent workout plan.
+- [x] Add exercises to the most recent workout plan.
 
-- Add new exercises to a new workout plan.
+- [x] Add new exercises to a new workout plan.
 
-- View the combined weight of multiple exercises from the past seven workouts on the `stats` page.
+- [x] View the combined weight of multiple exercises from the past seven workouts on the `stats` page.
 
-- View the total duration of each workout from the past seven workouts on the `stats` page.
+- [x] View the total duration of each workout from the past seven workouts on the `stats` page.
 
 ## Requirements
 
-- [] Deploy with Heroku and MongoDB Atlas
+- [x] Deploy with Heroku and MongoDB Atlas

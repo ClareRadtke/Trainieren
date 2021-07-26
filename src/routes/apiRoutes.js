@@ -5,13 +5,10 @@ const { Workout } = require("../../models/workout");
 router.post("/api/workouts", async ({ body }, res) => {
   try {
     const workout = await Workout.create(body);
-    console.log(workout);
     if (workout) {
       res.status(200).json(workout);
-      console.log(workout);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -23,10 +20,8 @@ router.put("/api/workouts/:id", async (req, res) => {
       { _id: req.params.id },
       { $push: { exercises: req.body } }
     );
-    console.log(update);
     res.status(200).json(update);
   } catch (err) {
-    console.log(err);
     res.json(err);
   }
 });
@@ -35,13 +30,9 @@ router.put("/api/workouts/:id", async (req, res) => {
 // View the combined weight of multiple exercises from the past seven workouts on the stats page
 router.get("/api/workouts/range", async ({ body }, res) => {
   try {
-    const sevenDaysAgo = new Date(new Date().setDate(new Date().getDate() - 6));
-    console.log("sevenDaysAgo:", sevenDaysAgo);
-    let workouts = await Workout.find({
-      day: { $gte: sevenDaysAgo },
-    });
-    // set day to be range of "today to today-7"
-    workouts = await Workout.aggregate([
+    const sevenDaysAgo = new Date(new Date().setDate(new Date().getDate() - 7));
+    const workouts = await Workout.aggregate([
+      { $match: { day: { $gte: sevenDaysAgo } } },
       {
         $addFields: {
           totalDuration: { $sum: "$exercises.duration" },
@@ -49,11 +40,9 @@ router.get("/api/workouts/range", async ({ body }, res) => {
       },
     ]);
     if (workouts) {
-      console.log("previous workouts Dashboard: ", workouts);
       res.status(200).json(workouts);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -70,11 +59,9 @@ router.get("/api/workouts", async ({ body }, res) => {
       },
     ]);
     if (workout) {
-      console.log("last workout: ", workout);
       res.status(200).json(workout);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
