@@ -35,7 +35,12 @@ router.put("/api/workouts/:id", async (req, res) => {
 // View the combined weight of multiple exercises from the past seven workouts on the stats page
 router.get("/api/workouts/range", async ({ body }, res) => {
   try {
-    let workouts = await Workout.find({});
+    const sevenDaysAgo = new Date(new Date().setDate(new Date().getDate() - 6));
+    console.log("sevenDaysAgo:", sevenDaysAgo);
+    let workouts = await Workout.find({
+      day: { $gte: sevenDaysAgo },
+    });
+    // set day to be range of "today to today-7"
     workouts = await Workout.aggregate([
       {
         $addFields: {
