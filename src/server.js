@@ -14,8 +14,8 @@ mongoose.connect(mongoDB || "mongodb://localhost/trainieren", {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
-mongoose.Promise = global.Promise;
-mongoose.connection.on("error", (error) => console.error(error.message));
+// mongoose.Promise = global.Promise;
+// mongoose.connection.on("error", (error) => console.error(error.message));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -1,12 +1,6 @@
 const router = require("express").Router();
 const { Workout } = require("../../models/workout");
 
-// TODO:
-// View the combined weight of multiple exercises from the past seven workouts on the stats page
-// Add exercises to the most recent workout plan.
-// Add new exercises to a new workout plan.
-// View the total duration of each workout from the past seven workouts on the stats page.
-
 // create workout
 router.post("/api/workouts", async ({ body }, res) => {
   try {
@@ -41,7 +35,8 @@ router.put("/api/workouts/:id", async (req, res) => {
 // View the combined weight of multiple exercises from the past seven workouts on the stats page
 router.get("/api/workouts/range", async ({ body }, res) => {
   try {
-    const workouts = await Workout.aggregate([
+    let workouts = await Workout.find({});
+    workouts = await Workout.aggregate([
       {
         $addFields: {
           totalDuration: { $sum: "$exercises.duration" },
@@ -49,10 +44,9 @@ router.get("/api/workouts/range", async ({ body }, res) => {
       },
     ]);
     if (workouts) {
-      console.log("previous workouts: ", workouts);
+      console.log("previous workouts Dashboard: ", workouts);
       res.status(200).json(workouts);
     }
-    console.log("previous workouts (out of if statement): ", workouts);
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
@@ -62,10 +56,17 @@ router.get("/api/workouts/range", async ({ body }, res) => {
 // get last workout
 router.get("/api/workouts", async ({ body }, res) => {
   try {
-    const workouts = await Workout.find({});
-    if (workouts) {
-      console.log("last workout: ", workouts);
-      res.status(200).json(workouts);
+    let workout = await Workout.find({});
+    workout = await Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: { $sum: "$exercises.duration" },
+        },
+      },
+    ]);
+    if (workout) {
+      console.log("last workout: ", workout);
+      res.status(200).json(workout);
     }
   } catch (err) {
     console.log(err);
