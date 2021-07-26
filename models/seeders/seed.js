@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const db = require("../models");
-const mongoDB =
-  "mongodb+srv://trainieren-data.xb3hn.mongodb.net/Trainieren-data";
+const db = require("../workout");
+const mongoDB = process.env.MONGODB_URI;
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,

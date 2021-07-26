@@ -1,14 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const mongoDB =
-  "mongodb+srv://trainieren-data.xb3hn.mongodb.net/Trainieren-data";
+const mongoDB = process.env.MONGODB_URI;
 const routes = require("./routes/api");
 
 const app = express();
 const PORT = process.env.PORT || 3333;
 
 //Mongoose connection
-mongoose.connect(process.env.MONGODB_URI || mongoDB, {
+mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
