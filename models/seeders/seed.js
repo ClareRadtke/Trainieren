@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const db = require("../models");
-const mongoDB = "mongodb://localhost/Trainieren-data";
+const mongoDB =
+  "mongodb+srv://trainieren-data.xb3hn.mongodb.net/Trainieren-data";
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
